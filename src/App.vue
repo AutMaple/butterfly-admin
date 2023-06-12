@@ -138,7 +138,7 @@ html, body {
 }
 
 .el-aside {
-  background-color: red;
+  background-color: #304156;
 }
 
 .el-main {

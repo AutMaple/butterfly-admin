@@ -3,19 +3,18 @@
     <template v-if="root">
       <el-menu background-color="#304156"
                text-color="#bfcbd9"
-               @open="handleOpen"
-               @close="handleClose">
+               :unique-opened="true">
         <template v-for="menu in menus">
           <el-submenu v-if="menu.subMenu && menu.subMenu.length > 0" :index="uuid()">
             <template slot="title">
               <i v-if="menu.icon" :class="menu.icon"></i>
-              {{ menu.title }}
+              <span>{{ menu.title }}</span>
             </template>
             <menu-tree :menus="menu.subMenu" :root="false"/>
           </el-submenu>
           <el-menu-item v-else :index="uuid()">
             <i v-if="menu.icon" :class="menu.icon"></i>
-            {{ menu.title }}
+            <span>{{ menu.title }}</span>
           </el-menu-item>
         </template>
       </el-menu>
@@ -25,13 +24,13 @@
         <el-submenu v-if="menu.subMenu && menu.subMenu.length > 0" :index="uuid()">
           <template slot="title">
             <i v-if="menu.icon" :class="menu.icon"></i>
-            {{ menu.title }}
+            <span>{{ menu.title }}</span>
           </template>
           <menu-tree :menus="menu.subMenu" :root="false"/>
         </el-submenu>
         <el-menu-item v-else :index="uuid()">
           <i v-if="menu.icon" :class="menu.icon"></i>
-          {{ menu.title }}
+          <span>{{ menu.title }}</span>
         </el-menu-item>
       </template>
     </template>
@@ -62,18 +61,13 @@ export default {
   methods: {
     uuid() {
       return uuid()
-    },
-    handleOpen(key, keyPath) {
-      console.log(keyPath);
-      console.log(keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key);
-      console.log(keyPath);
     }
   }
 }
 </script>
 
 <style scoped>
+.el-menu {
+  border: none;
+}
 </style>
