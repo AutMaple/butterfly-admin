@@ -37,7 +37,6 @@
 
 <script>
 import { Menu, Submenu, MenuItem } from "element-ui";
-import { mapActions } from "vuex";
 
 export default {
   name: "MenuTree",
@@ -60,8 +59,7 @@ export default {
     selectMenu(index, keyPath) {
       console.log("select" + index)
       console.log("select" + keyPath)
-    },
-    ...mapActions("menu", ['loadMenus'])
+    }
   }
 }
 </script>
