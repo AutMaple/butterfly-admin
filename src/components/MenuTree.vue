@@ -1,18 +1,16 @@
 <template>
   <div>
     <template v-if="root">
-      <el-menu background-color="#304156"
-               text-color="#bfcbd9"
-               :unique-opened="true">
+      <el-menu background-color="#304156" text-color="#bfcbd9" @select="selectMenu" :unique-opened="true">
         <template v-for="menu in menus">
-          <el-submenu v-if="menu.subMenu && menu.subMenu.length > 0" :index="uuid()">
+          <el-submenu v-if="menu.subMenu && menu.subMenu.length > 0" :index="menu.id.toString()">
             <template slot="title">
               <i v-if="menu.icon" :class="menu.icon"></i>
               <span>{{ menu.title }}</span>
             </template>
-            <menu-tree :menus="menu.subMenu" :root="false"/>
+            <menu-tree :menus="menu.subMenu" :root="false" />
           </el-submenu>
-          <el-menu-item v-else :index="uuid()">
+          <el-menu-item v-else :index="menu.id.toString()">
             <i v-if="menu.icon" :class="menu.icon"></i>
             <span>{{ menu.title }}</span>
           </el-menu-item>
@@ -21,14 +19,14 @@
     </template>
     <template v-else>
       <template v-for="menu in menus">
-        <el-submenu v-if="menu.subMenu && menu.subMenu.length > 0" :index="uuid()">
+        <el-submenu v-if="menu.subMenu && menu.subMenu.length > 0" :index="menu.id.toString()">
           <template slot="title">
             <i v-if="menu.icon" :class="menu.icon"></i>
             <span>{{ menu.title }}</span>
           </template>
-          <menu-tree :menus="menu.subMenu" :root="false"/>
+          <menu-tree :menus="menu.subMenu" :root="false" />
         </el-submenu>
-        <el-menu-item v-else :index="uuid()">
+        <el-menu-item v-else :index="menu.id.toString()">
           <i v-if="menu.icon" :class="menu.icon"></i>
           <span>{{ menu.title }}</span>
         </el-menu-item>
@@ -38,8 +36,8 @@
 </template>
 
 <script>
-import {Menu, Submenu, MenuItem} from "element-ui";
-import {v4 as uuid} from "uuid";
+import { Menu, Submenu, MenuItem } from "element-ui";
+import { mapActions } from "vuex";
 
 export default {
   name: "MenuTree",
@@ -59,9 +57,11 @@ export default {
     }
   },
   methods: {
-    uuid() {
-      return uuid()
-    }
+    selectMenu(index, keyPath) {
+      console.log("select" + index)
+      console.log("select" + keyPath)
+    },
+    ...mapActions("menu", ['loadMenus'])
   }
 }
 </script>

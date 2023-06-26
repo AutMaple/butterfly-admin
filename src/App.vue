@@ -4,7 +4,10 @@
       <el-aside width="200px">
         <menu-tree :menus="menus" />
       </el-aside>
-      <el-main>Main</el-main>
+      <el-main>
+        <main-header />
+        <menu-manage />
+      </el-main>
     </el-container>
   </div>
 </template>
@@ -15,9 +18,11 @@ import {
   Aside,
   Container
 } from "element-ui";
-import MenuTree from "@/components/MenuTree.vue";
 import Vue from "vue";
-import axios from "axios";
+import MenuTree from "@/components/MenuTree.vue";
+import MainHeader from "@/components/MainHeader.vue";
+import MenuManage from "@/components/MenuManage.vue";
+import { mapActions, mapState } from "vuex";
 
 
 Vue.use(Main)
@@ -28,22 +33,24 @@ export default {
   name: 'App',
   data() {
     return {
-      menus: [],
     }
   },
   components: {
+    MenuManage,
     Main,
     Aside,
     Container,
-    MenuTree
+    MenuTree,
+    MainHeader
   },
-  methods: {},
+  methods: {
+    ...mapActions("menu", ["loadMenus"]),
+  },
+  computed: {
+    ...mapState("menu", ["menus"])
+  },
   created() {
-    axios.get("http://localhost:8080/menu")
-      .then((res) => {
-        this.menus = res.data
-        console.log(this.menus)
-      })
+    this.loadMenus()
   },
 }
 </script>
@@ -66,6 +73,6 @@ el-container {
 }
 
 .el-main {
-  background-color: skyblue;
+  background-color: #f3f4f4;
 }
 </style>
