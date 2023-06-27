@@ -37,6 +37,7 @@
 
 <script>
 import { Menu, Submenu, MenuItem } from "element-ui";
+import { mapMutations } from "vuex";
 
 export default {
   name: "MenuTree",
@@ -56,9 +57,9 @@ export default {
     }
   },
   methods: {
-    selectMenu(index, keyPath) {
-      console.log("select" + index)
-      console.log("select" + keyPath)
+    ...mapMutations("menu", ["CHANGE_MENU_PATH"]),
+    selectMenu(_, keyPath) {
+      this.CHANGE_MENU_PATH(keyPath);
     }
   }
 }

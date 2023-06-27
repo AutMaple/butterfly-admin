@@ -1,7 +1,8 @@
 import axios from "axios"
 
 const state = {
-  menus: []
+  menus: [],
+  menuPath: []
 }
 
 const actions = {
@@ -19,6 +20,21 @@ const actions = {
 const mutations = {
   STORE_MENUS(state, menus) {
     state.menus = menus
+  },
+  CHANGE_MENU_PATH(state, menuIndexes) {
+    var path = []
+    var menus = state.menus
+    for (let index of menuIndexes) {
+      index = parseInt(index)
+      for (let menu of menus) {
+        if (menu.id === index) {
+          path.push(menu.title)
+          menus = menu.subMenu
+          break
+        }
+      }
+    }
+    state.menuPath = path
   }
 }
 

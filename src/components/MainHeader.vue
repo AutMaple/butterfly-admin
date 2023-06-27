@@ -2,13 +2,8 @@
   <div class="header">
     <div class="breadcrumb">
       <el-breadcrumb separator-class="el-icon-arrow-right">
-        <template v-for="crumb in crumbs">
-          <el-breadcrumb-item v-if="crumb.url && crumb.url.length > 0" :to="{ path: crumb.url }">
-            {{ crumb.content }}
-          </el-breadcrumb-item>
-          <el-breadcrumb-item v-else>
-            {{ crumb.content }}
-          </el-breadcrumb-item>
+        <template v-for="path in menuPath">
+          <el-breadcrumb-item>{{ path }}</el-breadcrumb-item>
         </template>
       </el-breadcrumb>
     </div>
@@ -23,6 +18,7 @@
 <script>
 import { Breadcrumb, BreadcrumbItem, Tag } from "element-ui";
 import Vue from "vue";
+import { mapState } from "vuex";
 
 Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
@@ -43,12 +39,10 @@ export default {
         { name: "标签四", type: "warning" },
         { name: "标签五", type: "danger" },
       ],
-      crumbs: [
-        { content: "首页" },
-        { content: "系统管理" },
-        { content: "菜单管理" },
-      ]
     }
+  },
+  computed: {
+    ...mapState("menu", ["menuPath"])
   }
 }
 </script>
